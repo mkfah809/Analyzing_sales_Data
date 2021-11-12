@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FileService {
 
@@ -15,29 +13,20 @@ public class FileService {
 	public final String MODELX_FILE = "modelX.csv";
 	public final String MODELS_FILE = "modelS.csv";
 
-	@SuppressWarnings("null")
-	public Map<LocalDate, Integer> readFile(String filePath) throws IOException {
+	@SuppressWarnings({ "null", "unused" })
+	public Set<Tesla> readFile(String filePath) throws IOException  {
 		BufferedReader fileReader = null;
-		Map<LocalDate, Integer> teslaInformation = new HashMap<>();
+		Set<Tesla> teslaInformation = new HashSet<>();
 		String line = null;
+		Tesla tesla = null;
 		String[] rows = null;
-		LocalDate date = null;
-		Long sales = null;
-		// Map<Integer, Integer> model3List = new HashMap<>();
+		Tesla[] teslas = new Tesla[50];
+		Integer controller = 0;
 		try {
 			fileReader = new BufferedReader(new FileReader(filePath));
-			while ((line = fileReader.readLine()) != null) {
-				Tesla tesla = new Tesla(date,sales);
-				rows = line.split(",");
-				
-				
-				tesla.setDate(rows[0]);
-				tesla.setSales(rows[1]);
-				teslaInformation.put(date, null);
-				System.out.println(line);
-			}
+			assignDataToList(teslaInformation, teslas,fileReader);
 		} catch (FileNotFoundException e) {
-			System.out.println("We coudln't find " + filePath + " at the moment.");
+			System.out.println("We couldn't find " + filePath + " at the moment.");
 			e.printStackTrace();
 		} finally {
 			if (fileReader == null)
@@ -46,9 +35,27 @@ public class FileService {
 		return teslaInformation;
 	}
 
-	public void readModel3File(String mODEL3_FILE2) {
-		// TODO Auto-generated method stub
-
+	@SuppressWarnings({ "unused" })
+	private void assignDataToList(Set<Tesla> teslaInformation, Tesla[] teslas, BufferedReader fileReader)
+			throws IOException {
+		String line;
+		String date = null;
+		String sales = null;
+		Integer controller = 0;
+		Tesla tesla = null;
+		String[] rows = null;
+		while ((line = fileReader.readLine()) != null) {
+			tesla = new Tesla(date, sales);
+			rows = line.split(",");
+			tesla.setDate(rows[0]);
+			tesla.setSales(rows[1]);
+			teslas[controller] = tesla;
+			controller++;
+			teslaInformation.add(tesla);
+			if (controller == null) {
+				break;
+			}
+		}
 	}
 
 }
