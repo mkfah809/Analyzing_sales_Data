@@ -9,15 +9,13 @@ public class Tesla {
 
 	@Override
 	public String toString() {
-		return date + ","  + sales ;
+		return date + "," + sales;
 	}
 
 	public Tesla(String date, String sales) {
 		this.date = date;
 		this.sales = sales;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -45,9 +43,10 @@ public class Tesla {
 
 	/**
 	 * @param date the date to set
+	 * @return 
 	 */
-	public void setDate(String date) {
-		this.date = date;
+	public String setDate(String date) {
+		return this.date = date;
 	}
 
 	/**
@@ -60,9 +59,9 @@ public class Tesla {
 	/**
 	 * @param sales the sales to set
 	 */
-	public void setSales(String sales) {
-		this.sales = sales;
-		
+	public String setSales(String sales) {
+		return this.sales = sales;
+
 	}
 
 }

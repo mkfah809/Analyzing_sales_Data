@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,32 +15,32 @@ public class FileService {
 	public final String MODELX_FILE = "modelX.csv";
 	public final String MODELS_FILE = "modelS.csv";
 
-	@SuppressWarnings({ "null", "unused" })
-	public Set<Tesla> readFile(String filePath) throws IOException  {
-		BufferedReader fileReader = null;
+	public Set<Tesla> readFile(String filePath) throws IOException, ParseException {
 		Set<Tesla> teslaInformation = new HashSet<>();
-		String line = null;
-		Tesla tesla = null;
-		String[] rows = null;
 		Tesla[] teslas = new Tesla[50];
-		Integer controller = 0;
+		loadFileAndAssignData(filePath, teslaInformation, teslas);
+		return teslaInformation;
+	}
+
+	private void loadFileAndAssignData(String filePath, Set<Tesla> teslaInformation, Tesla[] teslas)
+			throws IOException, ParseException {
+		BufferedReader fileReader = null;
 		try {
 			fileReader = new BufferedReader(new FileReader(filePath));
-			assignDataToList(teslaInformation, teslas,fileReader);
+			assignDataToList(teslaInformation, teslas, fileReader);
 		} catch (FileNotFoundException e) {
 			System.out.println("We couldn't find " + filePath + " at the moment.");
 			e.printStackTrace();
 		} finally {
-			if (fileReader == null)
+			if (fileReader != null)
 				fileReader.close();
 		}
-		return teslaInformation;
 	}
 
 	@SuppressWarnings({ "unused" })
 	private void assignDataToList(Set<Tesla> teslaInformation, Tesla[] teslas, BufferedReader fileReader)
-			throws IOException {
-		String line;
+			throws IOException, ParseException {
+		String line ="";
 		String date = null;
 		String sales = null;
 		Integer controller = 0;
@@ -47,8 +49,7 @@ public class FileService {
 		while ((line = fileReader.readLine()) != null) {
 			tesla = new Tesla(date, sales);
 			rows = line.split(",");
-			tesla.setDate(rows[0]);
-			tesla.setSales(rows[1]);
+			formatTeslaAttributes(line, tesla, rows);
 			teslas[controller] = tesla;
 			controller++;
 			teslaInformation.add(tesla);
@@ -57,5 +58,12 @@ public class FileService {
 			}
 		}
 	}
-
+	public void formatTeslaAttributes(String line, Tesla tesla, String[] rows)
+			throws ParseException, NumberFormatException {
+		@SuppressWarnings("unused")
+		java.util.Date dateFormatted = new SimpleDateFormat("MMM-yyyy").parse(tesla.setDate(rows[0]));
+		@SuppressWarnings("unused")
+		int salesFormatted = Integer.parseInt(tesla.setSales(rows[1]));
+		//System.out.println(line + "\t" + dateFormatted + "\t" + salesFormatted);
+	}
 }
