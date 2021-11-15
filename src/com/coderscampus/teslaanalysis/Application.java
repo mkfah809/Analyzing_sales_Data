@@ -1,62 +1,60 @@
 package com.coderscampus.teslaanalysis;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.IntSummaryStatistics;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class Application {
 
 	public static void main(String[] args) throws IOException, ParseException {
-		
-		  
-		String line = null;
-		Tesla tesla = null;
-		String[] rows = null;
 
-		    
-		FileService fileService = new FileService();
-		Set<Tesla> populateList = new HashSet<>();
-		populateList = fileService.readFile(fileService.MODEL3_FILE);
 		
+		   String str = "A,B,B,C,D";
+		   
+	        List<String> list =  Stream.of(str.split("-"))
+		        					   .map(x -> x)
+		        					   .distinct()
+		                               .collect(Collectors.toList());
+	        
+	        String listSplit  = list.stream(x->x);
+	      System.out.println(list);
+	        
+		List<Tesla> populateList = retrieveList();
 
-		getEachOfTeslaAttribitues(populateList);
+		List<Tesla> dates = populateDates(populateList);
+		System.out.println(dates);
 		
-		Set<String> dates = populateList.stream()
-										.map(date -> date.getDate())
-										.collect(Collectors.toSet());
 		
-		String yearSeperated = populateList.stream()
-										   .map(date -> date.getDate())
-										   .
-		Set<String> sales = populateList.stream()
-										.map(sale -> sale.getSales())
-										.collect(Collectors.toSet());
-
-		String salesSepereated = populateList.stream()
-											 .map(s -> s.getSales())	            
-											 .collect(Collectors.joining("\n"));
-
-		System.out.println("Model S Yearly Sales Report");
-		System.out.println("---------------------------");
-		System.out.println(salesSepereated);
+		List<Tesla> sales = populateSales(populateList);
 		System.out.println(sales);
-		System.out.println();		
-			
+
+		System.out.println();
+
+		
 	}
 
-	private static Set<Tesla> getEachOfTeslaAttribitues(Set<Tesla> populateList) {
-		populateList.stream()
-					.forEach(teslaSales -> teslaSales.toString());
-		populateList.stream()
-					.forEach(teslaDates -> teslaDates.toString());
+	private static List<Tesla> retrieveList() throws IOException, ParseException {
+		FileService fileService = new FileService();
+		List<Tesla> populateList = new ArrayList<>();
+		populateList = fileService.readFile(fileService.MODEL3_FILE);
 		return populateList;
 	}
+
+	private static List<Tesla> populateSales(List<Tesla> populateList) {
+		 populateList.stream().forEach(teslaSales -> System.out.println(teslaSales.getSales()));
+		 return populateList;
+	}
+
+	private static List<Tesla> populateDates(List<Tesla> populateList) {
+		populateList.stream().distinct()
+							 .forEach(teslaDates -> System.out.println(teslaDates.getDate()));
+		return populateList;
+	}
+	
+//	String salesSepereated = populateList.stream().map(s -> s.getSales()).collect(Collectors.joining("\n"));
+//	System.out.println(salesSepereated);
+//	return salesSepereated;
 }

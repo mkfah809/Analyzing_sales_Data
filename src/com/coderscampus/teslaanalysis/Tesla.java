@@ -6,6 +6,16 @@ public class Tesla {
 
 	String date;
 	String sales;
+	String year;
+
+
+	public String getYear() {
+		return year;
+	}
+
+	public String setYear(String year) {
+		return this.year = year;
+	}
 
 	@Override
 	public String toString() {
@@ -63,5 +73,7 @@ public class Tesla {
 		return this.sales = sales;
 
 	}
+
+
 
 }

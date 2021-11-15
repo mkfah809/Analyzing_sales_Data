@@ -6,23 +6,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 
 public class FileService {
-
 	public final String MODEL3_FILE = "model3.csv";
 	public final String MODELX_FILE = "modelX.csv";
 	public final String MODELS_FILE = "modelS.csv";
 
-	public Set<Tesla> readFile(String filePath) throws IOException, ParseException {
-		Set<Tesla> teslaInformation = new HashSet<>();
+	public List<Tesla> readFile(String filePath) throws IOException, ParseException {
+		List<Tesla> teslaInformation = new ArrayList<>();
 		Tesla[] teslas = new Tesla[50];
 		loadFileAndAssignData(filePath, teslaInformation, teslas);
 		return teslaInformation;
 	}
 
-	private void loadFileAndAssignData(String filePath, Set<Tesla> teslaInformation, Tesla[] teslas)
+	private void loadFileAndAssignData(String filePath, List<Tesla> teslaInformation, Tesla[] teslas)
 			throws IOException, ParseException {
 		BufferedReader fileReader = null;
 		try {
@@ -38,9 +38,9 @@ public class FileService {
 	}
 
 	@SuppressWarnings({ "unused" })
-	private void assignDataToList(Set<Tesla> teslaInformation, Tesla[] teslas, BufferedReader fileReader)
-			throws IOException, ParseException {
-		String line ="";
+	private void assignDataToList(List<Tesla> teslaInformation, Tesla[] teslas, BufferedReader fileReader)
+			throws IOException, ParseException, ArrayIndexOutOfBoundsException {
+		String line = "";
 		String date = null;
 		String sales = null;
 		Integer controller = 0;
@@ -49,7 +49,11 @@ public class FileService {
 		while ((line = fileReader.readLine()) != null) {
 			tesla = new Tesla(date, sales);
 			rows = line.split(",");
-			formatTeslaAttributes(line, tesla, rows);
+			tesla.setDate(rows[0]);
+			tesla.setSales(rows[1]);
+			// rows = line.split("-");
+			// tesla.setYear(rows[2]);
+			 formatTeslaAttributes(line, tesla, rows);
 			teslas[controller] = tesla;
 			controller++;
 			teslaInformation.add(tesla);
@@ -58,12 +62,18 @@ public class FileService {
 			}
 		}
 	}
+
 	public void formatTeslaAttributes(String line, Tesla tesla, String[] rows)
 			throws ParseException, NumberFormatException {
 		@SuppressWarnings("unused")
-		java.util.Date dateFormatted = new SimpleDateFormat("MMM-yyyy").parse(tesla.setDate(rows[0]));
+		java.util.Date dateFormatted = new SimpleDateFormat("MMM-YYYY").parse(tesla.setDate(rows[0]));
 		@SuppressWarnings("unused")
 		int salesFormatted = Integer.parseInt(tesla.setSales(rows[1]));
-		//System.out.println(line + "\t" + dateFormatted + "\t" + salesFormatted);
+
+		// java.util.Date yearFormatted = new
+		// SimpleDateFormat("YY").parse(tesla.setYear(rows[2]));
+
+		// System.out.println(line + "\t" + dateFormatted + "\t" + salesFormatted +"\t"
+		// + yearFormatted);
 	}
 }
