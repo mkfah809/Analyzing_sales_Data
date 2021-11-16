@@ -5,31 +5,21 @@ import java.util.Objects;
 public class Tesla {
 
 	String date;
-	String sales;
-	String year;
-
-
-	public String getYear() {
-		return year;
-	}
-
-	public String setYear(String year) {
-		return this.year = year;
-	}
+	Integer sale;
 
 	@Override
 	public String toString() {
-		return date + "," + sales;
+		return date + "," + sale;
 	}
 
-	public Tesla(String date, String sales) {
+	public Tesla(String date, Integer sale) {
 		this.date = date;
-		this.sales = sales;
+		this.sale = sale;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, sales);
+		return Objects.hash(date, sale);
 	}
 
 	@Override
@@ -41,7 +31,7 @@ public class Tesla {
 		if (getClass() != obj.getClass())
 			return false;
 		Tesla other = (Tesla) obj;
-		return Objects.equals(date, other.date) && Objects.equals(sales, other.sales);
+		return Objects.equals(date, other.date) && Objects.equals(sale, other.sale);
 	}
 
 	/**
@@ -53,27 +43,25 @@ public class Tesla {
 
 	/**
 	 * @param date the date to set
-	 * @return 
+	 * @return
 	 */
-	public String setDate(String date) {
-		return this.date = date;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	/**
 	 * @return the sales
 	 */
-	public String getSales() {
-		return sales;
+	public Integer getSales() {
+		return sale;
 	}
 
 	/**
 	 * @param sales the sales to set
 	 */
-	public String setSales(String sales) {
-		return this.sales = sales;
+	public void setSales(Integer sales) {
+		this.sale = sales;
 
 	}
-
-
 
 }
