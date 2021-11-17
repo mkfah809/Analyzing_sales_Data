@@ -13,14 +13,18 @@ public class Application {
 
 	private static void Launch() throws IOException, ParseException {
 		FileService fileService = new FileService();
-		List<Tesla> populateList = new ArrayList<>();
+		List<Tesla> populateModel3List = new ArrayList<>();
+		List<Tesla> populateModelSList = new ArrayList<>();
+		List<Tesla> populateModelXList = new ArrayList<>();
+
 		ExecuteList execute = new ExecuteList();
-		populateList = fileService.readFile(fileService.MODEL3_FILE);
-		execute.populateDates(populateList);
-		execute.populateSales(populateList);
-				
+		populateModel3List = fileService.readFile(fileService.MODEL3_FILE);
+		populateModelSList = fileService.readFile(fileService.MODELS_FILE);
+		populateModelXList = fileService.readFile(fileService.MODELX_FILE);
+		execute.executeReport(populateModel3List, populateModelSList, populateModelXList);
+		/*
+		 * List<Tesla> populateDates = execute.populateDates(populateModel3List);
+		 * List<Tesla> populateSales = execute.populateSales(populateModel3List);
+		 */
 	}
-
-
-
 }

@@ -1,18 +1,19 @@
 package com.coderscampus.teslaanalysis;
 
+import java.time.YearMonth;
 import java.util.Objects;
 
 public class Tesla {
 
-	String date;
+	YearMonth date;
 	Integer sale;
-
+	
 	@Override
 	public String toString() {
 		return date + "," + sale;
 	}
 
-	public Tesla(String date, Integer sale) {
+	public Tesla(YearMonth date, Integer sale) {
 		this.date = date;
 		this.sale = sale;
 	}
@@ -37,7 +38,7 @@ public class Tesla {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
+	public YearMonth getDate() {
 		return date;
 	}
 
@@ -45,7 +46,7 @@ public class Tesla {
 	 * @param date the date to set
 	 * @return
 	 */
-	public void setDate(String date) {
+	public void setDate(YearMonth date) {
 		this.date = date;
 	}
 
