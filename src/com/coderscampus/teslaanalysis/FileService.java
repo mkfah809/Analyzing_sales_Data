@@ -6,11 +6,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class FileService {
@@ -37,10 +35,11 @@ public class FileService {
 		}
 	}
 
-	private Tesla createTeslaRow(String[] metaData) {
-        YearMonth thisYearMonth = YearMonth.parse(metaData[0],DateTimeFormatter.ofPattern("MMM-yy")); 
-		int sale = Integer.parseInt(metaData[1]);
-		return new Tesla(thisYearMonth, sale);
-	}
+	private Tesla createTeslaRow(String[] rows) {
+		
+		int sale = Integer.parseInt(rows[1]);
+		YearMonth date = YearMonth.parse(rows[0], DateTimeFormatter.ofPattern("yy-MMM"));
 
+		return new Tesla(date, sale);
+	}
 }

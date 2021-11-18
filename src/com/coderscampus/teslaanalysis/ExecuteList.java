@@ -1,51 +1,48 @@
 package com.coderscampus.teslaanalysis;
 
-import java.text.ParseException;
-import java.time.YearMonth;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-
 public class ExecuteList {
 
-	public List<Tesla> populateSales(List<Tesla> populateList) {
-		List<Integer> sales = populateList.stream().map(sale -> sale.getSales()).collect(Collectors.toList());
-
-		return populateList;
-	}
-
-	public List<Tesla> populateDates(List<Tesla> populateList) throws ParseException {
-		List<YearMonth> dates = populateList.stream().map(year -> year.getDate()).distinct()
-				.collect(Collectors.toList());
-		return populateList;
-	}
 
 	public void executeReport(List<Tesla> populateModel3List, List<Tesla> populateModelSList,
 			List<Tesla> populateModelXList) {
-		String modelName = null;
-		getReportTitle(0,modelName);
-		System.out.println(populateModel3List);
-		getReportTitle(1,modelName);
-		System.out.println(populateModelSList);
-		getReportTitle(2,modelName);
-		System.out.println(populateModelXList);
+		
+		getReportTitle(0, "Model 3");
+		populateModel3List.stream()
+						  .map(t -> t.getDate() + " -> " + t.getSales())
+						  .distinct()
+						  .collect(Collectors.toList())
+						  .forEach(System.out::println);
+		System.out.println();
+		
+						  						
+		getReportTitle(1, "Model S");
+		populateModelSList.stream()
+						  .map(t -> t.getDate() + " -> " + t.getSales())
+						  .distinct()
+						  .forEach(System.out::println);
+		System.out.println();
+		
+		
+		getReportTitle(2, "model X");
+		populateModel3List.stream()
+						  .map(t -> t.getDate() + " -> " + t.getSales())
+						  .distinct()
+						  .forEach(System.out::println);
 	}
-
+	
 	private void getReportTitle(int titleMessage, String modelName) {
-
+		@SuppressWarnings("unused")
 		String[] titleMessageControl = new String[3];
-		titleMessageControl[0] = " yearly Sales Report\n-------------------------";
-		titleMessageControl[1] = " yearly Sales Report\n-------------------------";
-		titleMessageControl[2] = " yearly Sales Report\n-------------------------";
-
+		String titleMsg = " yearly Sales Report\n-------------------------";
 		if (titleMessage == 0) {
-			modelName = "Model 3";
-			System.out.println(modelName + titleMessageControl[0]);
+			System.out.println(modelName + titleMsg);
 		} else if (titleMessage == 1) {
-			modelName = "Model S";
-			System.out.println(modelName + titleMessageControl[1]);
+			System.out.println(modelName + titleMsg);
 		} else if (titleMessage == 2) {
-			modelName = "model X";
-			System.out.println(modelName + titleMessageControl[2]);
+			System.out.println(modelName + titleMsg);
 		}
 	}
 }

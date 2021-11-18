@@ -1,16 +1,17 @@
 package com.coderscampus.teslaanalysis;
 
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Tesla {
 
-	YearMonth date;
-	Integer sale;
+	private YearMonth date;
+	private Integer sale;
 	
 	@Override
 	public String toString() {
-		return date + "," + sale;
+		return "Tesla [date=" + date + ", sale=" + sale + "]";
 	}
 
 	public Tesla(YearMonth date, Integer sale) {

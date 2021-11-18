@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Application {
 
-	public static void main(String[] args) throws IOException, ParseException {    
+	public static void main(String[] args) throws Exception {
 		Launch();
 	}
 
-	private static void Launch() throws IOException, ParseException {
+	private static void Launch() throws Exception {
 		FileService fileService = new FileService();
 		List<Tesla> populateModel3List = new ArrayList<>();
 		List<Tesla> populateModelSList = new ArrayList<>();
@@ -22,9 +22,6 @@ public class Application {
 		populateModelSList = fileService.readFile(fileService.MODELS_FILE);
 		populateModelXList = fileService.readFile(fileService.MODELX_FILE);
 		execute.executeReport(populateModel3List, populateModelSList, populateModelXList);
-		/*
-		 * List<Tesla> populateDates = execute.populateDates(populateModel3List);
-		 * List<Tesla> populateSales = execute.populateSales(populateModel3List);
-		 */
+
 	}
 }
