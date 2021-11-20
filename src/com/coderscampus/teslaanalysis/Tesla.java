@@ -2,39 +2,22 @@ package com.coderscampus.teslaanalysis;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class Tesla {
 
 	private YearMonth date;
 	private Integer sale;
-	
 	@Override
 	public String toString() {
 		return "Tesla [date=" + date + ", sale=" + sale + "]";
 	}
 
-	public Tesla(YearMonth date, Integer sale) {
-		this.date = date;
+	public Tesla(String date, Integer sale) {
+		this.date = YearMonth.parse(date,DateTimeFormatter.ofPattern("yy-MMM"));
 		this.sale = sale;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, sale);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tesla other = (Tesla) obj;
-		return Objects.equals(date, other.date) && Objects.equals(sale, other.sale);
-	}
+	
 
 	/**
 	 * @return the date
