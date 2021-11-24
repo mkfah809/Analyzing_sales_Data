@@ -26,25 +26,33 @@ public class ExecuteList {
 		System.out.println(datesSeperated);
 		System.out.println();
 		
-		Optional<Tesla> bestMonth = populateModelList
-				.stream()
-				.max((Tesla this1, Tesla that2) -> 
-				this1.getSales().compareTo(that2.getSales()));
-		
+		Optional<Tesla> bestMonth = evaluateBestMonth(populateModelList);
+		Optional<Tesla> worstMonth = evaluateWorstMonth(populateModelList);
+		displayEvaluation(modelName, bestMonth, worstMonth);
+	}
+
+	private void displayEvaluation(String modelName, Optional<Tesla> bestMonth, Optional<Tesla> worstMonth) {
+		String date="17-Jul";
+		int sale= 0;
+		Tesla tesla = new Tesla(date,sale);	
+		System.out.println("The best month for " + modelName + " was: " + bestMonth.orElse(tesla).getDate());
+		System.out.println("The worst month for " + modelName + " was: " + worstMonth.orElse(tesla).getDate());
+		System.out.println();
+	}
+
+	private Optional<Tesla> evaluateWorstMonth(List<Tesla> populateModelList) {
 		Optional<Tesla> worstMonth = populateModelList
 				.stream()
 				.min((Tesla this1, Tesla that2) -> 
 				this1.getSales().compareTo(that2.getSales()));
-		
-		String date="17-Jul";
-		int sale= 0;
-		Tesla tesla = new Tesla(date,sale);
-		
-				
-		System.out.println("The best month for " + modelName + " was: " + bestMonth.orElse(tesla).getDate());
-		
-		System.out.println("The worst month for " + modelName + " was: " + worstMonth.orElse(tesla).getDate());
+		return worstMonth;
+	}
 
-		System.out.println();
+	private Optional<Tesla> evaluateBestMonth(List<Tesla> populateModelList) {
+		Optional<Tesla> bestMonth = populateModelList
+				.stream()
+				.max((Tesla this1, Tesla that2) -> 
+				this1.getSales().compareTo(that2.getSales()));
+		return bestMonth;
 	}
 }
