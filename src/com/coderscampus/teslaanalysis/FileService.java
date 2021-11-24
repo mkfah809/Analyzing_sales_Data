@@ -34,8 +34,8 @@ public class FileService {
 	}
 
 	private Tesla createTeslaRow(String[] rows) {
-		int sale = Integer.parseInt(rows[1]);
 		String date = rows[0];
+		String sale = rows[1];
 		return new Tesla(date, sale);
 	}
 }

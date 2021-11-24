@@ -7,46 +7,31 @@ public class Tesla {
 
 	private YearMonth date;
 	private Integer sale;
+	
 	@Override
 	public String toString() {
-		return "Tesla [date=" + date + ", sale=" + sale + "]";
+		return "date=" + date + ", sale=" + sale ;
 	}
 
-	public Tesla(String date, Integer sale) {
+	public Tesla(String date, String sale) {
 		this.date = YearMonth.parse(date,DateTimeFormatter.ofPattern("yy-MMM"));
-		this.sale = sale;
-	}
+		this.sale = Integer.parseInt(sale);	
+		}
 
-	
-
-	/**
-	 * @return the date
-	 */
 	public YearMonth getDate() {
 		return date;
 	}
 
-	/**
-	 * @param date the date to set
-	 * @return
-	 */
 	public void setDate(YearMonth date) {
 		this.date = date;
 	}
 
-	/**
-	 * @return the sales
-	 */
 	public Integer getSales() {
 		return sale;
 	}
 
-	/**
-	 * @param sales the sales to set
-	 */
 	public void setSales(Integer sales) {
 		this.sale = sales;
-
 	}
 
 }
