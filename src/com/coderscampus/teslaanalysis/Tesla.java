@@ -13,10 +13,10 @@ public class Tesla {
 		return "date=" + date + ", sale=" + sale ;
 	}
 
-	public Tesla(String date, String sale) {
+	public Tesla(String date, Integer sale) {
 		this.date = YearMonth.parse(date,DateTimeFormatter.ofPattern("yy-MMM"));
-		this.sale = Integer.parseInt(sale);	
-		}
+		this.sale = sale;
+	}
 
 	public YearMonth getDate() {
 		return date;

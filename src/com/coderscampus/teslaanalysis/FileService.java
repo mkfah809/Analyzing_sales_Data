@@ -23,7 +23,6 @@ public class FileService {
 		}
 		return teslaInformation;
 	}
-
 	private void getTeslaList(List<Tesla> teslaInformation, BufferedReader fileReader, String line) throws IOException {
 		while (line != null) {
 			String[] rows = line.split(",");
@@ -32,10 +31,9 @@ public class FileService {
 			line = fileReader.readLine();
 		}
 	}
-
 	private Tesla createTeslaRow(String[] rows) {
 		String date = rows[0];
-		String sale = rows[1];
+		int sale = Integer.parseInt(rows[1]);
 		return new Tesla(date, sale);
 	}
 }
